@@ -4,6 +4,21 @@ library(AppliedPredictiveModeling)
 library(caret)
 library(rattle)
 
+
+rm(list = ls())
+data(mtcars)
+mtcars$vs = as.factor(mtcars$vs)
+set.seed(125)
+model = train(am ~ ., method = 'rpart', data = mtcars)
+print(model)
+fancyRpartPlot(model$finalModel)
+
+sampleData = mtcars[1,]
+sampleData[1,names(sampleData)] = rep(NA, length(names(sampleData)))
+sampleData[1, c('wt')] = c(4)
+predict(model, sampleData[1,], verbose = TRUE)
+
+
 # Question 1 --------------------------------------------------------------
 
 rm(list = ls())
@@ -19,11 +34,17 @@ sampleData = training[1,]
 sampleData[1,names(sampleData)] = rep(NA, length(names(sampleData)))
 sampleData = rbind(sampleData, sampleData)
 sampleData = rbind(sampleData, sampleData)
-sampleData[1, c('TotalIntenCh1', 'FiberWidthCh1', 'PerimStatusCh1')] = c(23000, 10, 2)
-sampleData[2, c('TotalIntenCh1', 'FiberWidthCh1', 'VarIntenCh4')] = c(50000, 10, 100)
-sampleData[3, c('TotalIntenCh1', 'FiberWidthCh1', 'VarIntenCh4')] = c(57000, 8, 100)
+
+
+keep = c('Case', 'Class', 'Cell')
+#keep = c()
+sampleData = training[1:4,]
+sampleData[1,!(names(sampleData) %in% keep)] = rep(NA, length(names(sampleData))-length(keep))
+sampleData[1, c('TotalIntenCh2', 'FiberWidthCh1', 'PerimStatusCh1')] = c(23000, 10, 2)
+sampleData[2, c('TotalIntenCh2', 'FiberWidthCh1', 'VarIntenCh4')] = c(50000, 10, 100)
+sampleData[3, c('TotalIntenCh2', 'FiberWidthCh1', 'VarIntenCh4')] = c(57000, 8, 100)
 sampleData[4, c('FiberWidthCh1', 'VarIntenCh4', 'PerimStatusCh1')] = c(8, 100, 2)
-predict(model, sampleData)
+predict(model, sampleData[2,], verbose = TRUE, type = c('prob'))
 # This did not work for some reason....
 
 
