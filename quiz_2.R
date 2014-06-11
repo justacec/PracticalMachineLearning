@@ -3,7 +3,7 @@
 
 library(AppliedPredictiveModeling)
 library(caret)
-
+library(Hmisc)
 
 # Question 1 --------------------------------------------------------------
 
@@ -37,6 +37,7 @@ for(i in 1:length(vars)) {
 multiplot(plotlist = plots, cols = 3)
 # There are no variables that are correlated with the compressive strength
 
+featurePlot(x = training[,!(names(training) %in% c('CompressiveStrength'))], y = training$CompressiveStrength, plot = 'pairs')
 
 # Question 3 --------------------------------------------------------------
 
