@@ -7,12 +7,19 @@ output: html_document
 
 The weightlifting dataset offered by Eduardo Velloso and Wallace Ugulino consists of the $x$, $y$, and $z$ acceleration components and the associated euler angles for five different sensors placed in various locations on the weightlifter body or on the weights themselves.  During the study, six different weightlifters were instructed to perform a set of 10 reppititions of a known exercise in five different ways; one correct and four incorrect methods.  The five different methds for the [Unilateral Dumbbell Bicepts Curl](http://en.wikipedia.org/wiki/Biceps_curl) exercise were:
 
- A  Correct
- B  Throwing the Elbows to the front
- C  Lifting the dumbbell only halfway
- D  Lowering the dumbbell only halfway
- E  Throwing the hips to the front
+ A.  Correct
+
+ B.  Throwing the Elbows to the front
+
+ C.  Lifting the dumbbell only halfway
+
+ D.  Lowering the dumbbell only halfway
+
+ E.  Throwing the hips to the front
  
+ In each of these examples it is obvious that the data contains two specific types of errors.  The initial error is the non-exclusion of the time when the exercise was not being conducted.  These moments are evidenced by a constant flat line in the dataset.  The second error is the miss-catigorization of the data in each of the five possible ways the exercise was requested to be performed.  This occurs when the exercise is not being performed and in situations where there are multiple catogorizations in a single set (between two flat regions).
+ 
+The data was cleaned up by removing the time inbetween exercises and a re-catigorization based on the different time blocks.
 
  
 ```{r, echo=FALSE}
@@ -156,7 +163,7 @@ genOverviewPlot = function(name) {
 ```
 
 
-# Adelmo
+## Adelmo
 
 ```{r, echo=FALSE, dpi = 300, fig.align='center'}
 
@@ -165,7 +172,7 @@ grid.draw(gp)
 
 ```
 
-# Carlitos
+## Carlitos
 
 ```{r, echo=FALSE, dpi = 300, fig.align='center'}
 
@@ -174,7 +181,7 @@ grid.draw(gp)
 
 ```
 
-# Charles
+## Charles
 
 ```{r, echo=FALSE, dpi = 300, fig.align='center'}
 
@@ -192,7 +199,7 @@ grid.draw(gp)
 
 ```
 
-# Jeremy
+## Jeremy
 
 ```{r, echo=FALSE, dpi = 300, fig.align='center'}
 
@@ -201,7 +208,7 @@ grid.draw(gp)
 
 ```
 
-# Pedro
+## Pedro
 
 ```{r, echo=FALSE, dpi = 300, fig.align='center'}
 
