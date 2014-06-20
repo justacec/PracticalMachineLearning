@@ -30,7 +30,7 @@ sampleData[1, c('TotalIntenCh2', 'FiberWidthCh1', 'PerimStatusCh1')] = c(23000, 
 sampleData[2, c('TotalIntenCh2', 'FiberWidthCh1', 'VarIntenCh4')] = c(50000, 10, 100)
 sampleData[3, c('TotalIntenCh2', 'FiberWidthCh1', 'VarIntenCh4')] = c(57000, 8, 100)
 sampleData[4, c('FiberWidthCh1', 'VarIntenCh4', 'PerimStatusCh1')] = c(8, 100, 2)
-predict(model, sampleData[2,], verbose = TRUE, type = c('prob'))
+predict(model, sampleData[2,], verbose = TRUE)
 # This did not work for some reason....
 
 
@@ -95,10 +95,10 @@ vowel.train$y = as.factor(vowel.train$y)
 vowel.test$y = as.factor(vowel.test$y)
 
 set.seed(33833)
-model = train(y ~ ., method = 'rf', data = vowel.train, prox = TRUE, importance = TRUE)  # This takes some time...
+model = train(y ~ ., method = 'rf', data = vowel.train, prox = TRUE)  # This takes some time...
 print(model)
 
 vi = varImp(model$finalModel)
-vi
-
+vi = data.frame(var = 1:nrow(vi), imp = vi$Overall)
+vi[order(vi$imp),]
 
