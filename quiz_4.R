@@ -79,7 +79,11 @@ accuracy_lda = sum(pred_lda_test == testing$diagnosis) / length(pred_lda_test)
 
 accuracy_comb = sum(pred_comb_test == comb_data_test$diagnosis) / length(pred_comb_test)
 
+# Accuracy Results:
+#   RF  : 0.7683
+#   GBM : 0.7927
+#   LDA : 0.7683
+#   COMB: 0.7927
 
-pred_comb = predict(model_comb, comb_data)
-
-# Need to make sure to generate the 
+# So, the final answer is:
+# Stacked Accuracy: 0.79 is better than random forests and lda and the same as boosting
