@@ -87,3 +87,47 @@ accuracy_comb = sum(pred_comb_test == comb_data_test$diagnosis) / length(pred_co
 
 # So, the final answer is:
 # Stacked Accuracy: 0.79 is better than random forests and lda and the same as boosting
+
+
+
+# Question 3 --------------------------------------------------------------
+
+rm(list = ls())
+set.seed(3523)
+library(AppliedPredictiveModeling)
+data(concrete)
+inTrain = createDataPartition(concrete$CompressiveStrength, p = 3/4)[[1]]
+training = concrete[ inTrain,]
+testing = concrete[-inTrain,]
+
+set.seed(233)
+model = train(CompressiveStrength ~ ., method = 'lasso', data = training)
+plot(model$finalModel)
+
+# The plot is hard to understand.  I choose 'Cement' as the variable since it spent the most
+# time away from zero...  (I am not sure this is the correct way to interprit this plot)
+
+
+# Question 4 --------------------------------------------------------------
+
+
+
+# Question 5 --------------------------------------------------------------
+
+rm(list = ls())
+set.seed(3523)
+library(AppliedPredictiveModeling)
+data(concrete)
+inTrain = createDataPartition(concrete$CompressiveStrength, p = 3/4)[[1]]
+training = concrete[ inTrain,]
+testing = concrete[-inTrain,]
+
+set.seed(325)
+model = train(CompressiveStrength ~ ., method = 'svm', data = training)
+model = svm(CompressiveStrength ~ ., data = training)
+model
+pred = predict(model, testing)
+RMSE = sqrt(sum((pred - testing$CompressiveStrength)^2))
+
+# RMSE = 107.4401, this does not match any of the options...
+  
