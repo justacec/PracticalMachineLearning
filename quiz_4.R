@@ -3,6 +3,8 @@
 library(AppliedPredictiveModeling)
 library(caret)
 library(rattle)
+library(forecast)
+library(lubridate)
 
 
 # Question 1 --------------------------------------------------------------
@@ -110,7 +112,20 @@ plot(model$finalModel)
 
 # Question 4 --------------------------------------------------------------
 
+dat = read.csv("gaData.csv")
+training = dat[year(dat$date) == 2011,]
+tstrain = ts(training$visitsTumblr)
 
+remdata = dat[year(dat$date) > 2011,]
+tsrem = ts(remdata$visitsTumblr)
+
+model = bats(tstrain)
+
+pred <- forecast(model, h=length(tsrem),level=c(95))
+max(pred$lower[,1])
+accuracy <- 1-sum(tsrem>pred$upper[,1])/length(tsrem)
+
+# Result was 0.9617
 
 # Question 5 --------------------------------------------------------------
 
@@ -123,11 +138,12 @@ training = concrete[ inTrain,]
 testing = concrete[-inTrain,]
 
 set.seed(325)
-model = train(CompressiveStrength ~ ., method = 'svm', data = training)
 model = svm(CompressiveStrength ~ ., data = training)
 model
 pred = predict(model, testing)
 RMSE = sqrt(sum((pred - testing$CompressiveStrength)^2))
 
 # RMSE = 107.4401, this does not match any of the options...
+# It did however match the value of 11543.39 which is the MSE not the RMSE
+
   
