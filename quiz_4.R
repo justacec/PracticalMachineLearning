@@ -122,8 +122,9 @@ tsrem = ts(remdata$visitsTumblr)
 model = bats(tstrain)
 
 pred <- forecast(model, h=length(tsrem),level=c(95))
-max(pred$lower[,1])
-accuracy <- 1-sum(tsrem>pred$upper[,1])/length(tsrem)
+
+accuracy(pred, remdata$visitsTumblr)
+acc = sum(remdata$visitsTumblr <= pred$upper) / nrow(remdata)
 
 # Result was 0.9617
 
@@ -140,8 +141,12 @@ testing = concrete[-inTrain,]
 set.seed(325)
 model = svm(CompressiveStrength ~ ., data = training)
 model
+
 pred = predict(model, testing)
 RMSE = sqrt(sum((pred - testing$CompressiveStrength)^2))
+
+predins = predict(model, training)
+RMSEins = sqrt(sum((predins - training$CompressiveStrength)^2))
 
 # RMSE = 107.4401, this does not match any of the options...
 # It did however match the value of 11543.39 which is the MSE not the RMSE
