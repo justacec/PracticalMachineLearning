@@ -146,7 +146,8 @@ pred = predict(model, testing)
 RMSE = sqrt(sum((pred - testing$CompressiveStrength)^2))
 
 predins = predict(model, training)
-RMSEins = sqrt(sum((predins - training$CompressiveStrength)^2))
+RMSEins = sqrt(sum((predins - training$CompressiveStrength)^2)/length(predins))
+#this results will be close to the 2016 options, that are a little different I think because of the different packages versions
 
 # RMSE = 107.4401, this does not match any of the options...
 # It did however match the value of 11543.39 which is the MSE not the RMSE
